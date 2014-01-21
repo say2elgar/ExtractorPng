@@ -1,6 +1,7 @@
 #!/opt/local/bin/python2.7
 import sys
 import Image
+import re
 from xml.dom.minidom import parse, parseString
 
 def extract_from_xml(xml_filename, png_filename):
@@ -12,7 +13,7 @@ def extract_from_xml(xml_filename, png_filename):
 
 	for texture in textures:
 		texture_name = texture.attributes.getNamedItem("name").nodeValue
-		texture_name = texture_name.replace('parts/','')
+		texture_name = re.sub(r"^.*/","",texture_name)
 		print 'Texture :', texture_name
 
 		width = int(texture.attributes.getNamedItem("width").nodeValue)
